@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/app/config/theme/colors_config.dart';
 import 'package:netflix_clone/app/config/theme/text_style.dart';
+import 'package:netflix_clone/app/core/utils/responsive_size.dart';
 
 class Started extends StatelessWidget {
   const Started({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final BorderRadius borderRadius = BorderRadius.circular(8.0);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24.0),
+      padding: EdgeInsets.only(top: ResponsiveSize.height(10)),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.greyDark3, AppColors.greyDark1],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-          border: Border.all(color: AppColors.greyLight3, width: 1.0),
-          borderRadius: BorderRadius.circular(8.0),
+          border: Border.all(color: AppColors.grey, width: 2),
+          borderRadius: borderRadius,
         ),
         child: Stack(
           alignment: Alignment.topCenter,
@@ -25,16 +22,13 @@ class Started extends StatelessWidget {
             Column(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: borderRadius,
                   child: Image.asset('assets/images/init.png'),
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                  decoration: BoxDecoration(borderRadius: borderRadius),
                   height: MediaQuery.of(context).size.height / 10,
                   width: double.infinity,
-                  // color: AppColors.greyDark2,
                 ),
               ],
             ),
@@ -42,27 +36,26 @@ class Started extends StatelessWidget {
             Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: borderRadius,
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
-
                     stops: [0.1, 1],
-                    colors: [AppColors.greyDark3, Colors.transparent],
+                    colors: [AppColors.greyDark1, Colors.transparent],
                   ),
                 ),
               ),
             ),
 
             Positioned(
-              bottom: 0,
+              bottom: 10,
               child: Column(
                 spacing: 10,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     'Filmes, séries e muito\nmais, sem limites.',
-                    style: AppTextStyles.medium26.copyWith(
+                    style: AppTextStyles.mediumDisplay32.copyWith(
                       color: AppColors.white,
                     ),
                     textAlign: TextAlign.center,
@@ -70,12 +63,11 @@ class Started extends StatelessWidget {
 
                   Text(
                     'Assista onde quiser. Cancele quando quiser.',
-                    style: AppTextStyles.medium14.copyWith(
+                    style: AppTextStyles.lightTitle16.copyWith(
                       color: AppColors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 10),
                 ],
               ),
             ),

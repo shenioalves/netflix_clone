@@ -4,7 +4,6 @@ class Movie {
   final String description;
   final String posterUrl;
   final String category;
-
   Movie({
     required this.id,
     required this.title,
@@ -13,13 +12,22 @@ class Movie {
     required this.category,
   });
 
-  factory Movie.fromMap(Map<String, dynamic> map, String docId) {
+  factory Movie.fromMap(Map<String, dynamic> map) {
     return Movie(
-      id: docId,
+      id: map['id'],
       title: map['title'],
       description: map['description'],
       posterUrl: map['poster_url'],
       category: map['category'],
     );
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'poster_url': posterUrl,
+      'category': category,
+    };
   }
 }

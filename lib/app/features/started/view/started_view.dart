@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:netflix_clone/app/config/theme/colors_config.dart';
 import 'package:netflix_clone/app/config/theme/text_style.dart';
-import 'package:netflix_clone/app/features/started/widget/startde_widget.dart';
+import 'package:netflix_clone/app/core/utils/responsive_size.dart';
+import 'package:netflix_clone/app/features/started/widget/started_widget.dart';
 import 'package:netflix_clone/app/widgets/custom_button_widget.dart';
 
 class StartedView extends StatelessWidget {
@@ -28,30 +29,52 @@ class StartedView extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: RadialGradient(
                   center: Alignment.bottomCenter,
-                  radius: 1.0,
-                  colors: [AppColors.red, Colors.black],
+                  radius: 5,
+                  stops: [0.0, 0.1, 0.3],
+                  colors: [AppColors.blue, AppColors.blueDark3, Colors.black],
                 ),
               ),
             ),
           ),
+          ValueListenableBuilder(
+            valueListenable: _currentIndex,
+            builder: (context, value, child) {
+              return value == 1
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).padding.top + 70.0,
+                        horizontal: ResponsiveSize.width(10),
+                      ),
+                      child: Image.asset('assets/images/init.png'),
+                    )
+                  : SizedBox.shrink();
+            },
+          ),
 
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: MediaQuery.of(context).padding.top,
+              vertical: ResponsiveSize.paddingTop,
+              horizontal: ResponsiveSize.width(10),
             ),
             child: Column(
+              spacing: ResponsiveSize.height(10),
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset('assets/images/netflix_icon_n.png', height: 40),
+                    SizedBox(
+                      width: ResponsiveSize.height(30),
+                      child: Image.asset(
+                        'assets/images/icon.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     TextButton(
                       onPressed: () {
                         debugPrint('Entrar Pressed');
                         context.push('/login');
                       },
-                      child: const Text('ENTRAR', style: AppTextStyles.black14),
+                      child: Text('ENTRAR', style: AppTextStyles.mediumTitle16),
                     ),
                   ],
                 ),
@@ -64,7 +87,66 @@ class StartedView extends StatelessWidget {
                     onPageChanged: (index) {
                       _currentIndex.value = index;
                     },
-                    children: [Started(), Started(), Started()],
+                    children: [
+                      Started(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * .6,
+                          ),
+                          SizedBox(height: 10),
+                          //Image.asset('assets/images/init.png'),
+                          Text(
+                            'A fim de deviersão ilimitadas?',
+                            style: AppTextStyles.mediumHeadline18.copyWith(
+                              color: AppColors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.check, color: AppColors.blue),
+                              SizedBox(width: 4),
+                              Text(
+                                'Assista a filmes e séries offline',
+                                style: AppTextStyles.mediumBody14.copyWith(
+                                  color: AppColors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.check, color: AppColors.blue),
+                              SizedBox(width: 4),
+                              Text(
+                                'Novos lançamentos adicionados toda semana',
+                                style: AppTextStyles.mediumBody14.copyWith(
+                                  color: AppColors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.check, color: AppColors.blue),
+                              SizedBox(width: 4),
+                              Text(
+                                'Cancele quando quiser',
+                                style: AppTextStyles.mediumBody14.copyWith(
+                                  color: AppColors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Started(),
+                    ],
                   ),
                 ),
 
@@ -96,8 +178,26 @@ class StartedView extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 20),
-                CustomButtonWidget(label: 'Vamos lá'),
+
+                Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.black.withAlpha(50),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
+                  ),
+                  child: CustomButtonWidget(
+                    label: 'Vamos lá',
+                    onPressed: () {
+                      debugPrint('Vamos lá Pressed');
+                      context.push('/register');
+                    },
+                  ),
+                ),
               ],
             ),
           ),
